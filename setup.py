@@ -25,8 +25,6 @@ CODE_QUALITY_REQ = [
 ]
 
 TESTS_REQ = [
-    "tox == 3.14.5",
-    "tox-venv==0.4.0",
     "pytest == 4.6.9",
     "pytest-cov == 2.8.1",
     "pytest-html == 1.22.1",
