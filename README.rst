@@ -17,6 +17,11 @@
 FIAAS Logging
 =============
 
+|Build Badge|
+
+.. |Build Badge| image:: https://fiaas-svc.semaphoreci.com/badges/logging.svg?style=shields
+    :target: https://fiaas-svc.semaphoreci.com/projects/logging
+
 This library configures logging according to the current FIAAS recomended format.
 
 Usage::
