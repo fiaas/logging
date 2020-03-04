@@ -33,6 +33,7 @@ blocks:
           - checkout
           - mkdir "${PIP_CACHE_DIR}"
           - cache restore "setup-${SEMAPHORE_GIT_BRANCH}-$(checksum setup.py)","setup-${SEMAPHORE_GIT_BRANCH}",setup-master
+          - apt-get install python3-venv
           - pip install --user tox
       jobs:
         - name: Tests
