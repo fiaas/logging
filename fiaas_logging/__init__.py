@@ -14,15 +14,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from __future__ import absolute_import
+from __future__ import absolute_import, unicode_literals
 
-import threading
 import datetime
 import json
 import logging
 import sys
+import threading
 
-__version__ = '0.1.0'
 LOG_EXTRAS = threading.local()
 
 
@@ -108,16 +107,8 @@ def init_logging(debug=False, format="plain"):
 def _create_default_handler(format):
     handler = logging.StreamHandler(sys.stdout)
     handler.addFilter(ExtraFilter())
-    if _json_format(format):
+    if format == "json":
         handler.setFormatter(FiaasFormatter())
-    elif _plain_format(format):
+    elif format == "plain":
         handler.setFormatter(logging.Formatter("[%(asctime)s|%(levelname)7s] %(message)s [%(name)s|%(threadName)s]"))
     return handler
-
-
-def _json_format(format):
-    return format == "json"
-
-
-def _plain_format(format):
-    return format == "plain"
