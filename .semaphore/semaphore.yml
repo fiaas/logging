@@ -38,7 +38,6 @@ blocks:
           - mkdir "${PIP_CACHE_DIR}"
           - cache restore "setup-${SEMAPHORE_GIT_BRANCH}-$(checksum setup.py)","setup-${SEMAPHORE_GIT_BRANCH}",setup-master
           - pip install --user tox
-          - bash <(curl -Ls https://coverage.codacy.com/get.sh) --help  # Use --help to just download too and not run it
       jobs:
         - name: Tests
           commands:
@@ -49,6 +48,7 @@ blocks:
         - name: Gather coverage data
           commands:
             - tox -e coverage
+            - bash <(curl -Ls https://coverage.codacy.com/get.sh) -r ./build/reports/coverage.xml
       epilogue:
         commands:
           - cache store "setup-${SEMAPHORE_GIT_BRANCH}-$(checksum setup.py)" "${PIP_CACHE_DIR}"
