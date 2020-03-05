@@ -23,10 +23,14 @@ blocks:
   - name: Run tests
     task:
       secrets:
-        - name: publish-codacy-token
+        - name: codacy_api_token
       env_vars:
         - name: PIP_CACHE_DIR
           value: .pip_cache
+        - name: CODACY_USERNAME
+          value: fiaas-svc
+        - name: CODACY_PROJECT_NAME
+          value: logging
       prologue:
         commands:
           - export PATH="${HOME}/.local/bin":"${PATH}"
@@ -34,6 +38,7 @@ blocks:
           - mkdir "${PIP_CACHE_DIR}"
           - cache restore "setup-${SEMAPHORE_GIT_BRANCH}-$(checksum setup.py)","setup-${SEMAPHORE_GIT_BRANCH}",setup-master
           - pip install --user tox
+          - bash <(curl -Ls https://coverage.codacy.com/get.sh) --help  # Use --help to just download too and not run it
       jobs:
         - name: Tests
           commands:

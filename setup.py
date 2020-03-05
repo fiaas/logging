@@ -69,7 +69,6 @@ def main():
         setup_requires=['pytest-runner', 'wheel', 'setuptools_scm'],
         extras_require={
             "dev": TESTS_REQ + CODE_QUALITY_REQ,
-            "codacy": ["codacy-coverage"],
             "release": ["publish"]
         },
         tests_require=TESTS_REQ,
