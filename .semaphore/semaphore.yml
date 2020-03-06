@@ -30,7 +30,7 @@ blocks:
         - name: CODACY_USERNAME
           value: fiaas-svc
         - name: CODACY_PROJECT_NAME
-          value: logging
+          value: fiaas/logging
       prologue:
         commands:
           - export PATH="${HOME}/.local/bin":"${PATH}"
