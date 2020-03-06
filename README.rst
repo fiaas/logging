@@ -56,3 +56,8 @@ message      The actual log message
 extras       A structure containing extra fields. Used for thread context
 throwable    A formatted stacktrace if the log message is the result of an exception
 ============ =======================================================================
+
+
+.. image:: https://api.codacy.com/project/badge/Grade/735fe699137c4c1d94748d5c2525157f
+   :alt: Codacy Badge
+   :target: https://app.codacy.com/gh/fiaas/logging?utm_source=github.com&utm_medium=referral&utm_content=fiaas/logging&utm_campaign=Badge_Grade_Dashboard
