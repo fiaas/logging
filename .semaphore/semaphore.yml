@@ -45,10 +45,10 @@ blocks:
           matrix:
             - env_var: TOXENV
               values: ["py27", "py36", "py37", "py38"]
-        - name: Gather coverage data
-          commands:
-            - tox -e coverage
-            - bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ./build/reports/coverage.xml
+#        - name: Gather coverage data
+#          commands:
+#            - tox -e coverage
+#            - bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ./build/reports/coverage.xml
       epilogue:
         commands:
           - cache store "setup-${SEMAPHORE_GIT_BRANCH}-$(checksum setup.py)" "${PIP_CACHE_DIR}"
