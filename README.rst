@@ -17,14 +17,18 @@
 FIAAS Logging
 =============
 
-|Build Badge| |Code quality badge|
+|Build Badge| |Code quality badge| |Code coverage badge|
 
 .. |Build Badge| image:: https://fiaas-svc.semaphoreci.com/badges/logging.svg?style=shields
     :target: https://fiaas-svc.semaphoreci.com/projects/logging
 
 .. |Code quality badge| image:: https://api.codacy.com/project/badge/Grade/735fe699137c4c1d94748d5c2525157f
-   :alt: Codacy Badge
+   :alt: Codacy Code Quality
    :target: https://app.codacy.com/gh/fiaas/logging
+
+.. |Code coverage badge| image:: https://api.codacy.com/project/badge/Coverage/b3204d1070ee4dd1a372b7d2e84ee6d1
+   :alt: Codacy Coverage
+   :target: https://www.codacy.com/gh/fiaas/logging
 
 
 This library configures logging according to the current FIAAS recomended format.
