@@ -28,9 +28,9 @@ blocks:
         - name: PIP_CACHE_DIR
           value: .pip_cache
         - name: CODACY_USERNAME
-          value: fiaas-svc
+          value: fiaas
         - name: CODACY_PROJECT_NAME
-          value: fiaas/logging
+          value: logging
       prologue:
         commands:
           - export PATH="${HOME}/.local/bin":"${PATH}"
@@ -45,10 +45,10 @@ blocks:
           matrix:
             - env_var: TOXENV
               values: ["py27", "py36", "py37", "py38"]
-#        - name: Gather coverage data
-#          commands:
-#            - tox -e coverage
-#            - bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ./build/reports/coverage.xml
+        - name: Gather coverage data
+          commands:
+            - tox -e coverage
+            - bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ./build/reports/coverage.xml
       epilogue:
         commands:
           - cache store "setup-${SEMAPHORE_GIT_BRANCH}-$(checksum setup.py)" "${PIP_CACHE_DIR}"
