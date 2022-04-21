@@ -21,6 +21,7 @@ import json
 import logging
 import sys
 import threading
+from logging import LogRecord
 
 LOG_EXTRAS = threading.local()
 
@@ -77,6 +78,25 @@ class FiaasFormatter(logging.Formatter):
         }
 
 
+class PlainExtraFormatter(logging.Formatter):
+    def __init__(self):
+        super().__init__("[%(asctime)s|%(levelname)7s] %(message)s [%(name)s|%(threadName)s]%(extra_string)s")
+
+    def format(self, record: LogRecord) -> str:
+        if hasattr(record, "extras") and record.extras:
+            record.extra_string = self._format_extras(record)
+        else:
+            record.extra_string = ""
+        return super().format(record)
+
+    @staticmethod
+    def _format_extras(record):
+        pairs = []
+        for k, v in record.extras.items():
+            pairs.append(f"{k}={v}")
+        return " " + ", ".join(pairs)
+
+
 class ExtraFilter(logging.Filter):
     def filter(self, record):
         extras = {}
@@ -110,5 +130,5 @@ def _create_default_handler(format):
     if format == "json":
         handler.setFormatter(FiaasFormatter())
     elif format == "plain":
-        handler.setFormatter(logging.Formatter("[%(asctime)s|%(levelname)7s] %(message)s [%(name)s|%(threadName)s]"))
+        handler.setFormatter(PlainExtraFormatter())
     return handler

@@ -53,6 +53,8 @@ debug  `True`/`False`  Enable debug logging
 ====== =============== =================================================
 
 The plain format contains the fields timestamp, level name, message, logger name, and thread name.
+If the extras feature is used, key-value pairs will be added to the end of the message.
+
 In the json format, there are more fields, with more detail. The fields in the json output are:
 
 ============ =======================================================================
