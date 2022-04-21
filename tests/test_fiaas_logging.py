@@ -19,15 +19,13 @@ from __future__ import unicode_literals, absolute_import
 import json
 import logging
 import sys
-from datetime import datetime
 
 import mock
 import pytest
 from callee import InstanceOf, Attrs, List
 from six import StringIO
 
-from fiaas_logging import ExtraFilter, set_extras, init_logging, FiaasFormatter, _create_default_handler, \
-    PlainExtraFormatter
+from fiaas_logging import ExtraFilter, set_extras, init_logging, FiaasFormatter, _create_default_handler
 
 TEST_MESSAGE = "This is a test message"
 
@@ -48,7 +46,7 @@ class TestLogSetup(object):
 
     @pytest.fixture(params=("plain", "json"))
     def format(self, request):
-        yield request.param, FiaasFormatter if request.param == "json" else PlainExtraFormatter
+        yield request.param, FiaasFormatter if request.param == "json" else logging.Formatter
 
     @staticmethod
     def _describe_stream_handler(formatter):
@@ -86,28 +84,3 @@ class TestLogSetup(object):
         assert TEST_MESSAGE in log_entry["message"]
         assert log_entry["extras"]["one"] == "1"
         assert log_entry["extras"]["two"] == "2"
-
-
-class TestPlainExtraFormatter(object):
-    @pytest.fixture
-    def formatter(self):
-        return PlainExtraFormatter()
-
-    @pytest.fixture
-    def record(self):
-        record = logging.LogRecord("name", logging.INFO, "pathname", 42, "msg", None, None)
-        record.created = datetime(2000, 1, 1, 0, 0, 0).timestamp()
-        record.msecs = 0
-        return record
-
-    def test_no_extras(self, formatter, record):
-        actual = formatter.format(record)
-        assert actual == "[2000-01-01 00:00:00,000|   INFO] msg [name|MainThread]"
-
-    def test_with_extras(self, formatter, record):
-        record.extras = {
-            "key1": "value1",
-            "key2": "value2",
-        }
-        actual = formatter.format(record)
-        assert actual == "[2000-01-01 00:00:00,000|   INFO] msg [name|MainThread] key1=value1, key2=value2"
